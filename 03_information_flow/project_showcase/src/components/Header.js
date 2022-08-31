@@ -1,16 +1,20 @@
-import React, { useState } from "react";
+// import React, { useState } from "react"; // move this up to app
 
-const Header = () => {
-  const [isDarkMode, setIsDarkMode] = useState(true);
+// accept the state (that we lifted up) from the parent as props here
+const Header = ({ onToggleDarkMode, isDarkMode }) => {
+  // console.log('onToggleDarkMode', onToggleDarkMode)
+  // const [isDarkMode, setIsDarkMode] = useState(true);// move this up to app
 
-  const toggleDarkMode = () => {
-    setIsDarkMode(isDarkMode => !isDarkMode)
-  }
+  
+  // const toggleDarkMode = () => { // move this up to app
+  //   setIsDarkMode(isDarkMode => !isDarkMode)
+  // }
 
   const handleToggleDarkMode = (e) => {
-    toggleDarkMode();
+    onToggleDarkMode();
   }
 
+  console.log('Header: render')
   return (
     <header>
       <h1>
