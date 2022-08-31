@@ -1,9 +1,19 @@
 import { useState } from 'react';
 import ProjectListItem from "./ProjectListItem";
 
-const ProjectList = ({ projects }) => {
-
+const ProjectList = () => {
+  const [projects, setProjects] = useState([]);
   const [searchQuery, setSearchQuery] = useState("")
+
+  const handleClick = () => {
+    loadProjects();
+  };
+  
+  const loadProjects = () => {
+    fetch("http://localhost:4000/projects")
+      .then((res) => res.json())
+      .then((projects) => setProjects(projects));
+  }
 
   const handleSearch = (e) => {
     setSearchQuery(e.target.value)
@@ -24,6 +34,7 @@ const ProjectList = ({ projects }) => {
 
   return (
     <section>
+      <button onClick={handleClick}>Load Projects</button>
       <h2>Projects</h2>
 
       <div className="filter">
