@@ -24,7 +24,17 @@ const ProjectForm = ({ onAddProject }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
-    onAddProject(formData);
+    fetch("http://localhost:4000/projects", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      }, 
+      body: JSON.stringify(formData)
+    })
+      .then((response) => response.json())
+      .then((savedProject) => {
+        onAddProject(savedProject);
+      });
     setFormData(initialFormState);
   }
 
