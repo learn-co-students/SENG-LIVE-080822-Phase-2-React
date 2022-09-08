@@ -40,13 +40,26 @@ const App = () => {
     setSelectedPhase(newPhase)
   }
 
-  const onUpdateProject = () => {
+  const onUpdateProject = (updatedProject) => {
     setProjectToEdit(null);
+    setProjects(projects => projects.map(project => {
+      // check if this project is the one I just updated
+      if (updatedProject.id === project.id) {
+        return updatedProject;
+      } else {
+        // otherwise just leave the old project in state
+        return project;
+      }
+    }))
   };
 
   const onEditProject = (projectToEdit) => {
     setProjectToEdit(projectToEdit);
   };
+
+  const onDeleteProject = (id) => {
+    setProjects(projects => projects.filter(project => project.id !== id))
+  }
 
   const renderForm = () => {
     if (projectToEdit) {
@@ -68,6 +81,8 @@ const App = () => {
       <ProjectList
         projects={projects}
         onEditProject={onEditProject}
+        onUpdateProject={onUpdateProject}
+        onDeleteProject={onDeleteProject}
         onSelectedPhaseChange={onSelectedPhaseChange}
         setSelectedPhase={setSelectedPhase}
         setSearchQuery={setSearchQuery}
