@@ -1,5 +1,6 @@
 import ProjectListItem from "./ProjectListItem";
 import { useState, useEffect } from "react";
+import { NavLink, useParams } from "react-router-dom";
 
 const ProjectList = ({
   projects,
@@ -8,6 +9,8 @@ const ProjectList = ({
   setSearchQuery
 }) => {
   const [searchInputText, setSearchInputText] = useState("");
+
+  const { phase } = useParams();
 
   const projectItems = projects.map((project) => {
     return (
@@ -31,17 +34,25 @@ const ProjectList = ({
     }
   }, [setSearchQuery, searchInputText])
 
+  useEffect(() => {
+    if (phase) {
+      setSelectedPhase(phase);
+    } else {
+      setSelectedPhase("");
+    }
+  }, [phase, setSelectedPhase])
+
   return (
     <section>
       <h2>Projects</h2>
 
       <div className="filter">
-        <button onClick={() => setSelectedPhase("")}>All</button>
-        <button onClick={() => setSelectedPhase("5")}>Phase 5</button>
-        <button onClick={() => setSelectedPhase("4")}>Phase 4</button>
-        <button onClick={() => setSelectedPhase("3")}>Phase 3</button>
-        <button onClick={() => setSelectedPhase("2")}>Phase 2</button>
-        <button onClick={() => setSelectedPhase("1")}>Phase 1</button>
+        <NavLink className="button" exact to="/projects">All</NavLink>
+        <NavLink className="button" to="/projects/phase/5">Phase 5</NavLink>
+        <NavLink className="button" to="/projects/phase/4">Phase 4</NavLink>
+        <NavLink className="button" to="/projects/phase/3">Phase 3</NavLink>
+        <NavLink className="button" to="/projects/phase/2">Phase 2</NavLink>
+        <NavLink className="button" to="/projects/phase/1">Phase 1</NavLink>
       </div>
       <input type="text" placeholder="Search..." onChange={handleOnChange} />
 

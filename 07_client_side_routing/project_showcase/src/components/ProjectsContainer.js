@@ -66,6 +66,16 @@ const ProjectsContainer = () => {
           setSearchQuery={setSearchQuery}
         />
       </Route>
+      <Route exact path="/projects/phase/:phase">
+        <ProjectList
+          projects={projects}
+          onUpdateProject={onUpdateProject}
+          onDeleteProject={onDeleteProject}
+          onSelectedPhaseChange={onSelectedPhaseChange}
+          setSelectedPhase={setSelectedPhase}
+          setSearchQuery={setSearchQuery}
+        />
+      </Route>
       <Route path="/projects/new">
         <ProjectForm onAddProject={onAddProject} />
       </Route>
