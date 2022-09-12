@@ -1,19 +1,20 @@
 import { useState } from "react";
 import { FaPencilAlt, FaTrash } from "react-icons/fa";
+import { useHistory } from "react-router-dom";
 
 const ProjectListItem = ({
   project,
-  onEditProject,
   onDeleteProject,
 }) => {
   const { id, image, about, name, link, phase } = project;
 
   const [clapCount, setClapCount] = useState(0);
+  const history = useHistory();
 
   const handleClap = (clapCount) => setClapCount(clapCount + 1);
 
   const handleEditClick = () => {
-    onEditProject(project);
+    history.push(`/projects/${id}/edit`)
   };
 
   const handleDeleteClick = () => {
