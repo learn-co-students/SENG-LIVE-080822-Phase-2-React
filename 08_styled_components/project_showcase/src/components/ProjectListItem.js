@@ -1,10 +1,24 @@
 import { useState } from "react";
 import { FaPencilAlt, FaTrash } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
+import { Button } from "./styles";
+
+const Claps = styled(Button)`
+  color: transparent;
+  text-shadow: 0 0 0 var(--primary);
+  position: absolute;
+  top: 10px;
+  right: 10px;
+
+  &:hover {
+    color: transparent;
+    text-shadow: 0 0 0 var(--background);
+  }
+`
 
 const ProjectListItem = ({
   project,
-  onProjectEdit,
   onProjectDelete,
 }) => {
   const { id, image, about, name, link, phase } = project;
@@ -12,10 +26,6 @@ const ProjectListItem = ({
   const [clapCount, setClapCount] = useState(0);
 
   const handleClap = (clapCount) => setClapCount(clapCount + 1);
-
-  const handleEditClick = () => {
-    onProjectEdit(project);
-  };
 
   const handleDeleteClick = () => {
     onProjectDelete(id)
@@ -29,9 +39,9 @@ const ProjectListItem = ({
       <Link to={`/projects/${id}`}>
         <figure className="image">
           <img src={image} alt={name} />
-          <button onClick={handleClap} className="claps">
+          <Claps onClick={handleClap}>
             👏{clapCount}
-          </button>
+          </Claps>
         </figure>
       </Link>
 
@@ -48,12 +58,12 @@ const ProjectListItem = ({
       <footer className="extra">
         <span className="badge blue">Phase {phase}</span>
         <div className="manage">
-          <Link className="button" to={`/projects/${id}/edit`}>
+          <Button as={Link} to={`/projects/${id}/edit`}>
             <FaPencilAlt />
-          </Link>
-          <button onClick={handleDeleteClick}>
+          </Button>
+          <Button onClick={handleDeleteClick}>
             <FaTrash />
-          </button>
+          </Button>
         </div>
       </footer>
     </li>

@@ -1,10 +1,22 @@
 import ProjectListItem from "./ProjectListItem";
 import { useState, useEffect } from "react";
 import { NavLink, useHistory, useParams, useRouteMatch, useLocation } from "react-router-dom";
+import styled from "styled-components";
+import { Input, NavButton } from "./styles";
+
+const Filter = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 1rem;
+
+  a {
+    margin: 0 1rem;
+  }
+`;
 
 const ProjectList = ({
   projects,
-  onProjectEdit,
   onProjectDelete,
   setSelectedPhase,
   setSearchQuery
@@ -28,7 +40,6 @@ const ProjectList = ({
       <ProjectListItem
         key={project.id}
         project={project}
-        onProjectEdit={onProjectEdit}
         onProjectDelete={onProjectDelete}
       />
     );
@@ -84,63 +95,58 @@ const ProjectList = ({
     <section>
       <h2>Projects</h2>
 
-      <div className="filter">
-        <NavLink 
-          className="button" 
+      <Filter>
+        <NavButton 
           exact to={{
             pathname: "/projects",
             search: search
           }}
         >
           All
-        </NavLink>
-        <NavLink 
-          className="button" 
+        </NavButton>
+        <NavButton 
           to={{
             pathname: "/projects/phase/5",
             search: search
           }}
         >
           Phase 5
-        </NavLink>
-        <NavLink 
-          className="button" 
+        </NavButton>
+        <NavButton 
           to={{
             pathname: "/projects/phase/4",
             search: search
           }}
         >
           Phase 4
-        </NavLink>
-        <NavLink
-          className="button"
+        </NavButton>
+        <NavButton
+          as={NavLink}
           to={{
             pathname: "/projects/phase/3",
             search: search
           }}
         >
           Phase 3
-        </NavLink>
-        <NavLink 
-          className="button" 
+        </NavButton>
+        <NavButton 
           to={{
             pathname: "/projects/phase/2",
             search: search
           }}
         >
           Phase 2
-        </NavLink>
-        <NavLink 
-          className="button" 
+        </NavButton>
+        <NavButton 
           to={{
             pathname: "/projects/phase/1",
             search: search
           }}
         >
           Phase 1
-        </NavLink>
-      </div>
-      <input type="text" placeholder="Search..." onChange={handleOnChange} value={searchInputText} />
+        </NavButton>
+      </Filter>
+      <Input type="text" placeholder="Search..." onChange={handleOnChange} value={searchInputText} />
 
       <ul className="cards">{projectItems}</ul>
     </section>

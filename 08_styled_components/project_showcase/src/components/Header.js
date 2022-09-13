@@ -1,30 +1,62 @@
 import React from "react";
-import { NavLink, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+import { Button, NavButton } from "./styles";
+
+const StyledHeader = styled.header`
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  * {
+    margin: 0 0.5rem;
+  }
+`
+
+const Branding = styled.h1`
+  display: flex;
+  a {
+    border-bottom: none;
+    display: flex;
+    align-items: center;
+  }
+  a:hover {
+    border-bottom: none;
+    background-color: transparent;
+  }
+`
+
+const Logo = styled.span`
+  color: var(--turquoise);
+  font-size: 1.25em;
+  font-family: Helvetica;
+  margin-right: 0.5rem;
+`
 
 const Header = ({ isDarkMode, onToggleDarkMode }) => {
   const buttonTextContent = isDarkMode ? "Light Mode" : "Dark Mode";
 
   return (
-    <header className="navigation">
-      <h1 className="branding">
+    <StyledHeader>
+      <Branding>
         <Link to="/">
-          <span className="logo">{"//"}</span>
+          <Logo>{"//"}</Logo>
           Project Showcase
         </Link>
-      </h1>
+      </Branding>
       <nav>
-        <NavLink className="button" exact to="/projects">
+        <NavButton exact to="/projects">
           All Projects
-        </NavLink>
-        <NavLink className="button" to="/projects/new">
+        </NavButton>
+        <NavButton to="/projects/new">
           Add Project
-        </NavLink>
-        <NavLink className="button" to="/about">
+        </NavButton>
+        <NavButton to="/about">
           About
-        </NavLink>
-        <button onClick={onToggleDarkMode}>{buttonTextContent}</button>
+        </NavButton>
+        <Button onClick={onToggleDarkMode}>{buttonTextContent}</Button>
       </nav>
-    </header>
+    </StyledHeader>
   );
 };
 
